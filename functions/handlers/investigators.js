@@ -123,6 +123,39 @@ exports.loginInvestigator = (req, res) => {
     });
 };
 
+exports.getInvestigatorDetails = (req, res) => {
+    let invData = {};
+    db.doc(`/Users/${req.params.email}`)
+    .get()
+    .then(doc => {
+        if (doc.exists) {
+            invData.investigator = doc.data();
+            return db
+                .collection("Investigations")
+                .where("email", "==", req.params.email)
+                .orderBy("createdAt", "desc")
+                .get();
+        } else {
+            return res.status(404).json({ error: "Investigator not found in datatbase" });
+        }
+    })
+    .then(data => {
+        invData.investigations = [];
+        data.forEach(doc => {
+            invData.investigations.push({
+                body: doc.data().body,
+                createdAt: doc.data().createdAt,
+                email: doc.data().email,
+                commentCount: doc.data().commentCount,
+                investId: doc.id,
+                date: doc.data().date,
+                location: doc.data().location,
+                time: doc.data().time
+            })
+        })
+    })
+}
+
 exports.resetInvestigatorPassword = (req, res) => {
     const resInv = {
         email: req.body.email.toLowerCase()

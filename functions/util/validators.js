@@ -31,13 +31,13 @@ const isEmail = email => {
 
   exports.validateInvestigatorSignupData = data => {
     let errors = {};
-    let address = data.email.slice(-15).toLowerCase();
+    let address = data.email.slice(-14).toLowerCase();
     
     if (isEmpty(data.email)) {
       errors.email = "Field must not be empty";
     } else if (!isEmail(data.email)) {
       errors.email = "Field value must be a valid email address";
-    } else if (address !== "mgprs@gmail.com"){
+    } else if (address !== "dopi@gmail.com"){
       errors.email = "Investigators must sign up with their official MGPRS email"
     }
   
@@ -67,10 +67,10 @@ const isEmail = email => {
 
   exports.validateInvestigatorLoginData = data => {
     let errors = {};
-    let address = data.email.slice(-15).toLowerCase();
+    let address = data.email.slice(-14).toLowerCase();
   
     if (isEmpty(data.email)) errors.email = "Field must not be empty";
-    else if (address !== "mgprs@gmail.com"){
+    else if (address !== "dopi@gmail.com"){
       errors.email = "Investigators must login with their official MGPRS email"
     }
     if (isEmpty(data.password)) errors.password = "Field must not be empty";
