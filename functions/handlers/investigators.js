@@ -77,7 +77,7 @@ exports.signupInvestigator = (req, res) => {
             joined: new Date().toISOString(),
             imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt-media`,
             userId,
-            mgprs: true,
+            dopi: true,
             admin: false
         };
         return db.doc(`/Users/${newInvestigator.email}`).set(invCredentials);
